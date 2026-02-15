@@ -38,4 +38,4 @@ jobs:
         run: test -z $(go fmt ./...)
 
       - name: Run staticcheck
-        uses: staticcheck/actions/run-staticcheck@v0
+        uses: dominikh/staticcheck-action@v1.3.1
