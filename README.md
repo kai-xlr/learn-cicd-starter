@@ -1,4 +1,4 @@
-![Badge](https://github.com/kai-xlr/learn-cicd-starter/actions/workflows/ci.yml/badge.svg)
+https://github.com/kai-xlr/learn-cicd-starter/actions/workflows/ci.yml/badge.svg
 
 # learn-cicd-starter (Notely)
 
