@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
@@ -23,6 +24,15 @@ type apiConfig struct {
 
 //go:embed static/*
 var staticFiles embed.FS
+
+var validPort = regexp.MustCompile(`^[0-9]+$`)
+
+func sanitizePort(port string) string {
+	if validPort.MatchString(port) {
+		return port
+	}
+	return "redacted"
+}
 
 func main() {
 	err := godotenv.Load(".env")
@@ -89,10 +99,11 @@ func main() {
 
 	router.Mount("/v1", v1Router)
 	srv := &http.Server{
-		Addr:    ":" + port,
-		Handler: router,
+		Addr:              ":" + port,
+		Handler:           router,
+		ReadHeaderTimeout: 5 * 1000 * 1000 * 1000, // 5 seconds
 	}
 
-	log.Printf("Serving on port: %s\n", port)
+	log.Printf("Serving on port: %s\n", sanitizePort(port))
 	log.Fatal(srv.ListenAndServe())
 }
