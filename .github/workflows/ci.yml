@@ -44,4 +44,4 @@ jobs:
         run: test -z $(go fmt ./...)
 
       - name: Run staticcheck
-        uses: staticcheck/actions/run-staticcheck@v0
+        run: go install honnef.co/go/tools/cmd/staticcheck@latest && staticcheck ./...
